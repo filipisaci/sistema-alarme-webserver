@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Sistemas embarcados</title>
+    <meta http-equiv="refresh" content="5">
+</head>
+
+<body>
+    <h1>Sistema de alarme</h1>
+    {% if estado_sistema == 1 %}
+        <h2>Estado do sistema: Ativado</h2>
+    {% else %}
+        <h2>Estado do sistema: Desativado</h2>
+    {% endif %}
+
+    {% if configuracao_inicial == 1 %}
+
+        <p>
+            <span>Configuração da Zona 1:</span>
+            {% if configuracao_zona1 == 1 %} 
+                <span>Ativada</span>
+            {% else %}
+                <span>Inibida</span>
+            {% endif %}
+        </p>
+        <p>
+            <span>Configuração da Zona 2:</span>
+            {% if configuracao_zona2 == 1 %} 
+                <span>Ativada</span>
+            {% else %}
+                <span>Inibida</span>
+            {% endif %}
+        </p>
+        <p>
+            <span>Configuração da Zona 3:</span>
+            {% if configuracao_zona3 == 1 %} 
+                <span>Ativada</span>
+            {% else %}
+                <span>Inibida</span>
+            {% endif %}
+        </p>
+
+        <a href="desativaZona1"><button>Ativar/Desativar Zona 1</button></a>
+        <a href="desativaZona2"><button>Ativar/Desativar Zona 2</button></a>
+        <a href="desativaZona3"><button>Ativar/Desativar Zona 3</button></a>
+        <br>
+        <br>
+        <a href="limpaRPi"><button>Cleanup RPi</button></a>
+        <br>
+        <br>
+        <a href="ativaSistema"><button>Ativar Alarme</button></a>
+        <br>
+        <br>
+    {% else %}
+
+        <p>
+            {% if configuracao_zona1 == 1 %} 
+                <span>Estado da Zona 1:</span>
+                {% if estado_zona1 == 1 %} 
+                    <span>Violada</span>
+                {% else %}
+                    <span>OK</span>
+                {% endif %}
+            {% endif %}
+        </p>
+        <p>
+            {% if configuracao_zona2 == 1 %} 
+                <span>Estado da Zona 2:</span>
+                {% if estado_zona2 == 1 %} 
+                    <span>Violada</span>
+                {% else %}
+                    <span>OK</span>
+                {% endif %}
+            {% endif %}
+        </p>
+        <p>
+            {% if configuracao_zona3 == 1 %} 
+                <span>Estado da Zona 3:</span>
+                {% if estado_zona3 == 1 %} 
+                    <span>Violada</span>
+                {% else %}
+                    <span>OK</span>
+                {% endif %}
+            {% endif %}
+        </p>
+        
+        <br><a href="desativaSistema"><button>Desativar Alarme</button></a>
+        <br>
+        <br>
+
+    {% endif %}
+
+</body>
+
+<footer>
+    <h2> Logs do sistema: </h2>
+    <p>Legenda: Se o estado da zona estiver como 1 é porque ela disparou, ou seja, foi violada!</p>
+    <p>Data e hora | Estado Zona 1 | Estado Zona 2 | Estado Zona 3</p>
+    {% for line in logs[:-6:-1] %}
+        <p> {{ line }} </p>
+    {% endfor %}
+</footer>
+</html>
